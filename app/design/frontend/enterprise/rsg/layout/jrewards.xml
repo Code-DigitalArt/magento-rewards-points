@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <customer_account_index>
+        <reference  name="customer_account_dashboard">
+            <block type="unleaded_jrewards/customer_account_jrewards"  name="jrewards" template="jrewards/customer.phtml" />
+        </reference>
+    </customer_account_index>
+
+    <onestepcheckout_index_index>
+       <reference name="onestepcheckout.checkout">
+            <block type="unleaded_jrewards/checkout_payment_jrewards" name="jpayment" template="jrewards/payment.phtml"/>
+        </reference>
+    </onestepcheckout_index_index>
+
+    <customer_account_create>
+        <reference name="customer_form_register">
+            <block type="unleaded_jrewards/customer_account_jrewards" name="jcreate" template="jrewards/create.phtml"/>
+        </reference>
+    </customer_account_create>
+
+</layout>

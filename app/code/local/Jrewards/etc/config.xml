@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<config>
+    <!-- ... -->
+
+    <modules>
+        <Unleaded_Jrewards>
+            <version>1.0.0</version>
+        </Unleaded_Jrewards>
+    </modules>
+
+    <frontend>
+
+        <layout>
+            <updates>
+                <unleaded_jrewards module="Unleaded_Jrewards">
+                    <file>jrewards.xml</file>
+                </unleaded_jrewards>
+            </updates>
+        </layout>
+
+        <routers>
+            <unleaded_jrewards>
+                <use>standard</use>
+                <args>
+                    <module>Unleaded_Jrewards</module>
+                    <frontName>jrewards</frontName>
+                </args>
+            </unleaded_jrewards>
+        </routers>
+
+    </frontend>
+
+    <global>
+
+        <blocks>
+            <unleaded_jrewards>
+                <class>Unleaded_Jrewards_Block</class>
+            </unleaded_jrewards>
+        </blocks>
+
+        <helpers>
+            <unleaded_jrewards>
+                <class>Unleaded_Jrewards_Helper</class>
+            </unleaded_jrewards>
+        </helpers>
+
+        <models>
+            <unleaded_jrewards>
+                <class>Unleaded_Jrewards_Model</class>
+            </unleaded_jrewards>
+        </models>
+
+        <events>
+
+            <customer_address_save_after>
+                <observers>
+                    <notaregularevent>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>updatePerson</method>
+                    </notaregularevent>
+                </observers>
+            </customer_address_save_after>
+
+            <unleaded_jrewards_add_reward>
+                <observers>
+                    <unleaded_jrewards_model_observer>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>applyRewardCheckout</method>
+                    </unleaded_jrewards_model_observer>
+                </observers>
+            </unleaded_jrewards_add_reward>
+
+            <customer_register_success>
+                <observers>
+                    <unleaded_jrewards_model_observer_set_email_code>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>createRewardRegister</method>
+                    </unleaded_jrewards_model_observer_set_email_code>
+                </observers>
+            </customer_register_success>
+
+            <customer_login>
+                <observers>
+                    <unleaded_jrewards_model_observer_set_email_code>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>loginRegister</method>
+                    </unleaded_jrewards_model_observer_set_email_code>
+                </observers>
+            </customer_login>
+
+            <checkout_submit_all_after>
+                <observers>
+                    <unleaded_jrewards_model_observer>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>postTransactionData</method>
+                    </unleaded_jrewards_model_observer>
+                </observers>
+                <observers>
+                    <namespace>
+                        <type>singleton</type>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>rewardRedeemPut</method>
+                    </namespace>
+                </observers>
+            </checkout_submit_all_after>
+
+            <!--<checkout_onepage_controller_success_action>-->
+                <!--<observers>-->
+                    <!--<success>-->
+                        <!--<class>unleaded_jrewards_model_observer</class>-->
+                        <!--<method>finalizeRewardTransaction</method>-->
+                    <!--</success>-->
+                <!--</observers>-->
+            <!--</checkout_onepage_controller_success_action>-->
+
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <namespace>
+                        <type>singleton</type>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>setDiscount</method>
+                    </namespace>
+                </observers>
+            </sales_quote_collect_totals_after>
+
+            <reward_redeem_post>
+                <observers>
+                    <namespace>
+                        <type>singleton</type>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>setDiscount</method>
+                    </namespace>
+                </observers>
+                <observers>
+                    <namespace>
+                        <type>singleton</type>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>rewardRedeemPost</method>
+                    </namespace>
+                </observers>
+            </reward_redeem_post>
+
+            <customer_save_after>
+                <observers>
+                    <namespace>
+                        <type>singleton</type>
+                        <class>unleaded_jrewards_model_observer</class>
+                        <method>updatePerson</method>
+                    </namespace>
+                </observers>
+            </customer_save_after>
+
+        </events>
+
+        <resources>
+            <jrewards_setup>
+                <setup>
+                    <module>Unleaded_Jrewards</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </jrewards_setup>
+        </resources>
+
+    </global>
+
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <jrewards_options>
+                                            <title>Jack Rabbit Rewards</title>
+                                        </jrewards_options>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+</config>
+
+<!--
+ sales_quote_payment_import_data_before
+ sales_order_place_before
+ sales_order_invoice_pay
+ -->

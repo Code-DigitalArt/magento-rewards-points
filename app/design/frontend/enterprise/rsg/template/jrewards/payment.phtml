@@ -1,0 +1,109 @@
+<?php
+/**
+ * Company: Unleaded Group.
+ * Developer: Jason Roy
+ * Email: Jason@UnleadedGroup.com
+ * Module: Unleaded_Jrewards
+ */
+$rewardMember = $this->isRewardsMember();
+
+
+if($rewardMember == "1") {
+
+    $balance = (string)$this->checkRewardBalance();
+    $urlJackReward = $this->getUrl('jrewards/customer/discount');
+    $customerId = Mage::getSingleton('customer/session')->getId();
+    $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
+    $rewardToUse = (string)$this->rewardsToUse();
+    ?>
+
+
+    <div class="onestepcheckout-coupons reward-checkout">
+        <h2 class="new-title-section">
+            <?php echo $this->__("COUPONS/REWARDS") ?>
+        </h2>
+        <div class="rewards-box-section">
+            <label
+                for="jrewards_points_amount"
+                class="label">
+                <?php echo Mage::helper('unleaded_jrewards')->__('REWARDS AVAILABLE :  <strong>'.$balance.'</strong>'); ?>
+            </label>
+            <dl class="jrewards_checkout displat-table-text" id="jrewards_amount">
+                <dt class="display-vertical">
+                    <input
+                        type="text"
+                        size="8"
+                        name="jrewards"
+                        value="<?php echo $rewardToUse ?>"
+                        title="jrewards_entry"
+                        id="jrewards_entry"
+                        class="input-text"
+                    />
+                </dt>
+                <dt class="display-vertical2 apply-reward">
+                    <button
+                        class="button"
+                        name="jackrabbit-submit"
+                        id="jackrabbit-submit"
+                        title="<?php Mage::helper('core')->quoteEscape($this->__('Apply')) ?>">
+                        <?php echo $this->__("Apply") ?>
+                    </button>
+                </dt>
+            </dl>
+            <span class="small-text"><?php echo $this->__("Enter the reward amount in increments of $5" )?></span>
+        </div>
+    </div>
+
+    <script>
+
+        function ExpireCookie(minutes) {
+            var date = new Date();
+            date.setTime(date.getTime() + (minutes * 60 * 1000));
+            return date;
+        }
+
+        function applyReward() {
+
+            var reward_name = 'reward_amount';
+            var reward = jQuery('#jrewards_entry').val();
+
+            var cid_name = 'cid';
+            var cid = "<?php echo $customerId ?>";
+
+            var qid_name = 'qid';
+            var qid = "<?php echo $quoteId ?>";
+
+            var expired = ExpireCookie(10);
+            var summary = $$('div.onestepcheckout-summary').first();
+
+            var url = "<?php echo $urlJackReward?>";
+
+            jQuery.cookie(reward_name, reward, {path: '/', expires: expired});
+            jQuery.cookie(cid_name, cid, {path: '/', expires: expired});
+            jQuery.cookie(qid_name, qid, {path: '/', expires: expired});
+
+            summary.update('<div class="loading-ajax">&nbsp;</div>');
+
+            new Ajax.Request(url,
+                {
+                    method: 'post',
+                    onSuccess: function(transport){
+                        if(transport.status == 200){
+                            var response = transport.responseText.evalJSON();
+                            summary.hide();
+                            summary.update(response.summary);
+                            summary.show();
+                        }
+                    }
+                });
+        }
+
+        $('jackrabbit-submit').observe('click', function (e) {
+            e.preventDefault();
+            applyReward();
+        });
+
+
+    </script>
+
+<?php }?>

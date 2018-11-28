@@ -1,0 +1,330 @@
+<?php
+/**
+ * Company: Unleaded Group.
+ * Developer: Jason Roy
+ * Email: Jason@UnleadedGroup.com
+ * Module: Unleaded_Jrewards
+ */
+
+$jrewardsMember = $this->rewardsCustomer();
+date_default_timezone_set('America/New_York');
+$date = date('m/d/Y');
+?>
+<?php  if($jrewardsMember == 0) { ?>
+
+    <form
+        id="jrewards"
+        method="post"
+        action="<?php echo $this->getUrl('jrewards/customer/register') ?>">
+        <div class="info-box">
+            <h3 class="box-title"><?php echo $this->__('JackRabbit Rewards')?>
+
+                <span class="checkbox-img">
+                    <input
+                        type="checkbox"
+                        name="jackrabbit-signup"
+                        id="jackrabbit-signup"
+                        title="<?php echo Mage::helper('core')
+                            ->quoteEscape($this->__('Sign Up')) ?>"
+                        class="checkbox" />
+                    <label for="jackrabbit-signup"><?php echo $this->__('Yes, Sign Me Up!') ?>
+                        <b><?php echo $this->__('effective ' . $date) ?><br/>
+                            <span> <?php echo $this->__('I Agree to the run rewards program 
+                                <a 
+                                    href="/info/run-rewards-terms-conditions" 
+                                    target="_blank">
+                                    terms and conditions
+                                </a>') ?>
+                            </span>
+                        <b>
+                    </label>
+                </span>
+            </h3>
+
+            <div class="box-content">
+                <?php echo
+                    $this
+                        ->getLayout()
+                        ->createBlock('cms/block')
+                        ->setBlockId('rewards-block')
+                        ->toHtml();
+                ?>
+            </div>
+
+            <div class="info-box">
+                <div id="rewards-information"
+                     class="box-content reward-field-section no-display">
+                    <ul class="form-list">
+                        <li class="field" id="home-phone-rewards">
+                            <div class="field">
+                                <label for="home-phone"><?php echo $this->__('Home Phone Number') ?></label>
+                                <div class="input-box">
+                                    <input
+                                        type="text"
+                                        name="home-phone"
+                                        id="home-phone"
+                                        title="<?php echo Mage::helper('core')->quoteEscape($this->__('Home-Phone')) ?>"
+                                        value=""
+                                        class="input-text validate-phoneLax"
+                                    />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields no-display" id="cellphone-rewards">
+                            <div class="field">
+                                <label for="cell-phone"><?php echo $this->__('Cell Phone Number') ?></label>
+                                <div class="input-box">
+                                    <input
+                                        type="text"
+                                        name="cell-phone"
+                                        id="cell-phone"
+                                        title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cell-Phone')) ?>"
+                                        value=""
+                                        class="input-text validate-phoneLax" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="custom-field">
+                            <div class="field">
+                                <h5><?php echo $this->__('Text Messaging') ?></h5>
+                                <input
+                                    class="radio"
+                                    type="radio"
+                                    name="text-messaging"
+                                    id="accept-text-messaging"
+                                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('Accept')) ?>" />
+                                <label for="accept-text-messaging">
+                                    <?php echo $this->__('Accept') ?>
+                                    <span><em>*</em>
+                                        <?php echo $this->__('Standard messaging and data rates may apply') ?>
+                                </span>
+                                </label>
+                            </div>
+                        </li>
+                        <li class="custom-field">
+                            <div class="field">
+                                <input
+                                    class="radio"
+                                    type="radio"
+                                    name="text-messaging"
+                                    id="decline-text-messaging"
+                                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('Decline')) ?>"
+                                />
+                                <label for="decline-text-messaging"><?php echo $this->__('Decline') ?></label>
+                            </div>
+                        </li>
+                        <div class="custom-field">
+                            <h4><?php echo $this->__("Product Preference") ?></h4>
+                            <li><input
+                                    class="radio"
+                                    value="1"
+                                    type="radio"
+                                    name="product_preference"
+                                    id="mens" />
+                                <label for="mens"><?php echo $this->__("Men's") ?></label>
+                            </li>
+                            <li>
+                                <input
+                                    class="radio"
+                                    value="2"
+                                    type="radio"
+                                    name="product_preference"
+                                    id="womens" />
+                                <label for="womens"><?php echo $this->__("Women's") ?></label>
+                            </li>
+                        </div>
+                    </ul>
+                    <div class="buttons-set form-buttons">
+                        <button
+                            class="button"
+                            type="submit"
+                            name="jackrabbit-submit"
+                            id="jackrabbit-submit"
+                            title="
+                        <?php Mage::helper('core')->quoteEscape($this->__('Sign-Up!')) ?>">
+                            <?php echo $this->__('Sign-Up!') ?>
+                        </button>
+                    </div>
+                    <p class="required" style="font-size:14px;"><?php echo $this->__('* Required Fields') ?></p>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+
+        //]]>
+    </script>
+<?php  } ?>
+<?php if($jrewardsMember == 2) {?>
+<div class="info-box">
+    <h3 class="box-title">
+        <?php echo $this->__("Welcome Rewards Member!") ?>
+        <span class="arrow">
+                <i class="fa fa-caret-down"></i>
+            </span> <span class="sub-title">
+                <?php echo $this->__("effective " . $date) ?>
+            </span>
+    </h3>
+    <div class="box-content">
+        <div class="title clarfix">
+            <h3><?php echo $this->__("Please check your email for rewards verification.") ?></h3>
+            <br/>
+            <h5>
+                <?php echo $this->__('Account Sign-Up Verification Email.') ?>
+                <a href="<?php echo $this->getUrl('jrewards/customer/resendEmail') ?>">
+                    <?php echo $this->__('Click Here To Resend') ?>
+                </a>
+            </h5>
+
+        </div>
+    </div>
+            <div class="send-message-text clearfix">
+
+            </div>
+</div>
+<?php } ?>
+<?php if($jrewardsMember == 1) {
+$loyaltyData = $this->loyaltyData();
+$total_points = (string)$loyaltyData['curl values']['PointsEarned'];
+$dollars_available = (string)$loyaltyData['curl values']['RewardDollarAvailable'];
+$points_until_reward = (string)$loyaltyData['curl values']['PointsToNextReward'];
+$points_available = (int)$loyaltyData['curl values']['PointsAvailable'];
+?>
+<div class="info-box">
+    <h3 class="box-title">
+        <?php echo $this->__("Welcome Rewards Member!") ?>
+        <span class="arrow">
+            <i class="fa fa-caret-down"></i>
+        </span>
+    </h3>
+    <div class="box-content">
+
+        <div class="point-table clearfix">
+            <div class="title"><?php echo $this->__("My Points:") ?></div>
+            <div class="display-table-cell">
+                <div class="points-color">
+                    <span>
+                        <?php echo $this->__($total_points) ?>
+
+                    </span>
+                    <?php echo $this->__("Total Points") ?></div>
+                <div class="points-color black-color">
+                    <span>
+                        <?php echo $this->__($points_until_reward) ?>
+                    </span>
+                    <?php echo $this->__("Points Until Next Reward") ?>
+                </div>
+                <div class="points-color green-color">
+                    <span>
+                        <?php echo $this->__('$' . $dollars_available) ?>
+                    </span>
+                    <?php echo $this->__("Reward Dollars Available") ?></div>
+            </div>
+        </div>
+
+
+        <div class="clearfix">
+
+            <div class="point-slider clearfix">
+                <h3><?php echo $this->__("Points Until Next Reward") ?>
+                    <span><?php echo $this->__($points_until_reward . " More points to reach 200") ?></span>
+                </h3>
+
+                <div class="reward-slider clearfix">
+                    <div class="slider-text left"><?php echo $this->__("0") ?></div>
+                    <div class="slider-text right"><?php echo $this->__("200") ?></div>
+                    <ul>
+                        <li <?php if($points_available >= 40){echo 'class="active-slider"';} ?>><span>&nbsp;</span></li>
+                        <li <?php if($points_available >= 80){echo 'class="active-slider"';} ?>><span>&nbsp;</span></li>
+                        <li <?php if($points_available >= 120){echo 'class="active-slider"';} ?>><span>&nbsp;</span></li>
+                        <li <?php if($points_available >= 160){echo 'class="active-slider"';} ?>><span>&nbsp;</span></li>
+                        <li <?php if($points_available >= 200){echo 'class="active-slider"';} ?>><span>&nbsp;</span></li>
+                    </ul>
+                    <div class="slider-bottom-text right">
+                        <?php echo $this->__("$20") ?>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="rewards-table-section clearfix">
+
+            <div class="title clearfix">
+                <h3><?php echo $this->__("MY REWARDS") ?>
+                    <span><?php echo $this->__("TOTAL REWARDS AVAILABLE: 
+                        <strong>$" . $dollars_available ."</strong>") ?>
+                    </span>
+                </h3>
+            </div>
+
+            <div class="mobile-scroller">
+                <div class="table-section clearfix">
+                    <?php echo $this->myRewardsTable(); ?>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3 class="box-title sub-title">
+                <?php echo $this->__("POINTS HISTORY") ?>
+                <span class="arrow">
+            <i class="fa fa-caret-down"></i>
+        </span>
+            </h3>
+            <div class="box-content">
+
+                <div class="rewards-table-section clearfix bottom-margin">
+
+                    <div class="title clearfix">
+                        <h3><?php echo $this->__("EARNINGS SUMMARY") ?>
+                        </h3>
+
+
+                    </div>
+
+                    <div class="mobile-scroller">
+                        <div class="table-section clearfix">
+                            <?php echo $this->transactionTable(); ?>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <?php } ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($){
+                $('#jackrabbit-signup').change(function(){
+                    if($(this).is(":checked")) {
+                        $( "#rewards-information" ).removeClass( "no-display" );
+                    } else {
+                        $( "#rewards-information" ).addClass( "no-display" );
+                    }
+                });
+
+                $('#accept-text-messaging').change(function(){
+                    if($(this).is(":checked")) {
+                        jQuery("#cellphone-rewards").removeClass("no-display");
+                        jQuery("#cellphone-rewards").find("#cell-phone").addClass("required-entry");
+
+                    }
+                });
+                $('#decline-text-messaging').change(function(){
+                    if($(this).is(":checked")) {
+                        jQuery("#cellphone-rewards").addClass("no-display");
+                        jQuery("#cellphone-rewards").find("#cell-phone").removeClass("required-entry");
+
+                    }
+                });
+            });
+        </script>

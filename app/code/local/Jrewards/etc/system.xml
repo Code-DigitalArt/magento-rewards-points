@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <jrewards translate="label" module="unleaded_jrewards">
+            <label>Jack Rabbit Rewards</label>
+            <sort_order>1</sort_order>
+        </jrewards>
+    </tabs>
+
+    <sections>
+        <jrewards_options>
+            <label>Settings</label>
+            <tab>jrewards</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <section_one translate="label">
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <field_one translate="label">
+                            <label>API URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>API URI /api.</comment>
+                        </field_one>
+                        <field_two translate="label">
+                            <label>Authorization Code</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>64bit Encoded Username:Password.</comment>
+                        </field_two>
+                        <field_three translate="label">
+                            <label>Transaction URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Full Transaction URL.</comment>
+                        </field_three>
+                    </fields>
+                </section_one>
+            </groups>
+        </jrewards_options>
+    </sections>
+</config>
